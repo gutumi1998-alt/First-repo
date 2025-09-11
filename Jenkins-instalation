@@ -1,0 +1,59 @@
+Jenkins Installation on Ubuntu 
+
+STEP_1: Create a EC2 Machine in AWS (t2.micro) 
+
+ SSH to EC2 Machine created above -> sudp apt update -y
+STEP_2: Install Openjdk Java 17 
+
+ sudo apt install -y openjdk-17-jdk
+
+STEP_3: Install Jenkins with bellow commands 
+
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install -y jenkins
+
+STEP_4: Start Jenkins application suing systemctl
+
+To start Jenkins service
+      sudo systemctl start jenkins 
+
+To stop Jenkins service 
+      sudo systemctl stop jenkins 
+
+To check current status Jenkins service 
+      sudo systemctl status jenkins 
+
+To edit current Jenkins service settings
+      sudo systemctl edit jenkins 
+
+STEP_5: To access Jenkins from client (Browser)
+
+Jenkins by default runs on 8080 port
+To open 8080 port to access 
+     Goto -> EC2 -> jenkins_instance -> Security (Tab) 
+
+
+Then
+
+Edit inbound rules
+
+     
+
+Add inbound rule for 8080 
+
+     
+Access the jenkins with url <jenkins_ec2_public_ip_address>:<port> from any browser
+          example: 13.233.131.159:8080
+STEP_6: Initaial setup of jenkins (Unlock Jenkins)
+
+               
+
+   Run the below command in jenins EC2 machine         
+       sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+         (Note: copy and paste printed key in the above windows)
+
+                     
+                       If you get above error means you copied some extra charactes with initial_admin_password in the terminal (like including new line)
+                       Solution:  copy the password into any notepad application and copy only the password to jenkins
