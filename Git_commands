@@ -1,0 +1,8 @@
+git log
+git pull
+git push
+git branch <branch_name>
+git checkout <branch_name>
+git add
+git stash
+git pop
