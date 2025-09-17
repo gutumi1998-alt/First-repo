@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage("checkout stage") {
+            steps {
+                echo "this is checkout stage"
+            }
+        }
+        
+        stage("build stage") {
+            steps {
+                sh "pwd"
+            }
+        }
+        
+        stage("test stage") {
+            steps {
+                sh "ls -lrt"
+            }
+        }
+    }
+}
