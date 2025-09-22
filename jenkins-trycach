@@ -1,0 +1,33 @@
+pipeline {
+    agent any 
+    
+    stages {
+       stage('A') {
+          steps {
+                echo "This is A stage"
+          }
+       } 
+
+        stage('B') {
+            steps {
+                catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS') {
+                    sh 'echo hi'
+                }
+            }
+        }
+
+        stage('C') {
+            steps {
+                echo "Continue to next stages"
+            }
+        }
+
+        stage('D') {
+            steps {
+                echo "Continue to next stages"
+            }
+        }
+      
+    }   
+
+}
