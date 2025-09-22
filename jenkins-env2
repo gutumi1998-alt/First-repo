@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    options {
+        disableConcurrentBuilds() 
+    }
+    
+    stages {
+       stage('Checkout') {
+            environment {
+                APP_NAME = 'frontend'
+                TARGET_ENV = 'prod'
+                GIT_URL = 'https://github.com/itdefined-org-apps/july-2025.git'
+                GIT_CREDS = 'apps_github'
+                CHECKOUT_BRANCH = 'main'
+            } 
+
+          steps {
+            // Groovy syntax
+            git url: "${env.GIT_URL}",
+                branch: "${env.CHECKOUT_BRANCH}",
+                credentialsId: "${env.GIT_CREDS}" 
+
+          }
+       } 
+
+       stage('Shell Syntax') {
+            steps {
+               // Shell syntax
+               sh '''
+                    echo $APP_NAME
+                    echo $TARGET_ENV
+               ''' 
+            }
+       }
+      
+    }   
+
+}
