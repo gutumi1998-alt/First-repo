@@ -1,0 +1,36 @@
+pipeline {
+    agent any 
+
+    parameters {
+        choice(name: 'MY_URL', choices: ['https://github.com/itdefined-org-apps/july-2025.git','https://github.com/itdefined-org-apps/feb_2025_pipeline_full.git'])
+        choice(name: 'SERVER', choices: ['test','stagging','prod'])
+        string(name: 'CHECKOUT_BRANCH', defaultValue: 'main')
+        string(name: 'GIT_CREDS', defaultValue: 'apps_github')
+    }
+
+    stages {
+       stage('Checkout') {
+            
+          steps {
+            // Groovy syntax
+            git url: "${params.MY_URL}",
+                branch: "${params.CHECKOUT_BRANCH}",
+                credentialsId: "${params.GIT_CREDS}" 
+
+          }
+       } 
+
+       stage('Shell Syntax') {
+            steps {
+               // Groovy syntax
+               sh """
+                    echo ${params.MY_URL}
+                    echo ${params.CHECKOUT_BRANCH}
+                    echo ${params.GIT_CREDS}
+               """ 
+            }
+       }
+      
+    }   
+
+}
